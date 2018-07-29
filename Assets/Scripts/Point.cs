@@ -34,13 +34,13 @@ public class WrapPoint
     public float y;
     public float z;
 
-    public WrapPoint(GameObject pointToWrap)
+    public WrapPoint(Point pointToWrap)
     {
-        this.WrapParam1 = pointToWrap.GetComponentInChildren<Point>().Param1;
-        this.WrapParam2 = pointToWrap.GetComponentInChildren<Point>().Param2;
-        this.x = pointToWrap.GetComponentInChildren<Point>().x;
-        this.y = pointToWrap.GetComponentInChildren<Point>().y;
-        this.z = pointToWrap.GetComponentInChildren<Point>().z;
+        this.WrapParam1 = pointToWrap.Param1;
+        this.WrapParam2 = pointToWrap.Param2;
+        this.x = pointToWrap.x;
+        this.y = pointToWrap.y;
+        this.z = pointToWrap.z;
     }
 }
 

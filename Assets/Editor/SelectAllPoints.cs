@@ -6,12 +6,9 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Purchasing;
-using SimpleJson;
 
 public class SelectAllPoints : ScriptableWizard
 {
-    private List<WrapPoint> listPoint = new List<WrapPoint>();
-
     [MenuItem("Tools/Save Points")]
     static void SellectAllPointsTool()
     {
@@ -19,27 +16,29 @@ public class SelectAllPoints : ScriptableWizard
     }
     void OnWizardCreate()
     {
-        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
-        GameObject[] allPoints = allObjects.Where(x => x.GetComponent(typeof(Point)) != null).ToArray();
-        Selection.objects = allPoints;
+        Point[] allPoints = FindObjectsOfType<Point>();
+
+        //для выделения на сцене
+        GameObject[] allObjects = allPoints.Select(x => x.gameObject).ToArray();
+        Selection.objects = allObjects;
+        
         Serialization(allPoints);
     }
 
-    void Serialization(GameObject[] objectPoints)
+    void Serialization(Point[] Points)
     {
-        foreach (var objPoint in objectPoints)
+        List<WrapPoint> listPoint = new List<WrapPoint>();
+        foreach (var point in Points)
         {
-            WrapPoint newWrapPoint = new WrapPoint(objPoint);
-            Debug.Log(newWrapPoint.x);
+            WrapPoint newWrapPoint = new WrapPoint(point);
             listPoint.Add(newWrapPoint);
         }
-
-        string json = JsonHelper.ToJson<WrapPoint>(listPoint.ToArray(), true);
-        //Debug.Log(json);
+        string json = JsonHelper.ToJson<WrapPoint>(listPoint.ToArray());
         var path = EditorUtility.SaveFilePanel("Serialize Points to JSON", "", "Serialization.json", "json");
         File.WriteAllLines(path, new[] { json });
     }
 
+    //ToJson не съедает массивы, helper - его обёртка
     public static class JsonHelper
     {
         public static T[] FromJson<T>(string json)
@@ -52,14 +51,7 @@ public class SelectAllPoints : ScriptableWizard
         {
             Wrapper<T> wrapper = new Wrapper<T>();
             wrapper.Items = array;
-            return JsonUtility.ToJson(wrapper);
-        }
-
-        public static string ToJson<T>(T[] array, bool prettyPrint)
-        {
-            Wrapper<T> wrapper = new Wrapper<T>();
-            wrapper.Items = array;
-            return JsonUtility.ToJson(wrapper, prettyPrint);
+            return JsonUtility.ToJson(wrapper, true);
         }
 
         [Serializable]
