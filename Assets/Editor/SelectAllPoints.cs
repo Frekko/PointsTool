@@ -21,7 +21,9 @@ public class SelectAllPoints : ScriptableWizard
         //для выделения на сцене
         GameObject[] allObjects = allPoints.Select(x => x.gameObject).ToArray();
         Selection.objects = allObjects;
-        
+
+        Debug.Log(Vector3.Distance(GameObject.Find("Point1").transform.position, GameObject.Find("Point2").transform.position));
+        Debug.Log(Math.Sqrt(Math.Pow((-7.03 - 8.67), 2) + Math.Pow((-2.65 - 5.61), 2) + Math.Pow((6.67 - -4.13),2)));
         Serialization(allPoints);
     }
 

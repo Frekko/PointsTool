@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\Class1.cs" />
     <Compile Include="Assets\Editor\SelectAllPoints.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>R:/Programming/PointsTool/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
@@ -353,9 +354,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{17DC2E1C-0886-5775-0247-52B6529EA6A6}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{D5078A3D-C382-E613-68F5-71C575543A1C}</Project>
       <Name>Assembly-CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
+      <Project>{564CF286-4EC4-540C-2D95-C0FE559C1CC4}</Project>
+      <Name>Assembly-CSharp-Editor-firstpass</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
